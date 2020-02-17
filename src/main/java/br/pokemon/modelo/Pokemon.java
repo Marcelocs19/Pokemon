@@ -21,4 +21,6 @@ public class Pokemon {
 	
 	private Tipo tipo;
 	
+	private String descricao;
+	
 }
