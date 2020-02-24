@@ -12,7 +12,9 @@ import br.pokemon.modelo.Pokemon;
 public class LeituraTxt {
 
 	public static Map<Long, Pokemon> leitura() throws NumberFormatException, IOException {
-		File fileReader = new File("C:\\Eclipse\\WorkspaceDbServer\\Pokemon\\src\\main\\resources\\Lista Pokemons.txt");
+		String path  = "src/main/resources/Lista Pokemons.txt";		
+		
+		File fileReader = new File(path);
 		FileReader fr = new FileReader(fileReader);
 		Map<Long, Pokemon> listaPokemonMap = new HashMap<Long, Pokemon>();
 		BufferedReader bufferedReader = new BufferedReader(fr);
