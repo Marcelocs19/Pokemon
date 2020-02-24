@@ -4,46 +4,70 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import br.pokemon.modelo.Pokemon;
+import br.pokemon.tipo.Tipo;
 
 public class LeituraTxt {
 
-	public static Map<Long, Pokemon> leitura() throws NumberFormatException, IOException {
+	public static List<Pokemon> leitura() throws NumberFormatException, IOException {
 		String path  = "src/main/resources/Lista Pokemons.txt";		
 		
 		File fileReader = new File(path);
 		FileReader fr = new FileReader(fileReader);
-		Map<Long, Pokemon> listaPokemonMap = new HashMap<Long, Pokemon>();
+		List<Pokemon> listaPokemonMap = new ArrayList<Pokemon>();
 		BufferedReader bufferedReader = new BufferedReader(fr);
 
-		Long id = 0L;
+		Long id = 0L;		
 		String nome = "";
+		String tipo1 = "";
+		String tipo2 = "";
+		String descricao = "";
 		String line = "";
 
 		while (bufferedReader.ready()) {
 
 			line = bufferedReader.readLine();
 
-			String arrayAux[] = new String[2];
-			arrayAux = line.split(" ");
-
-			id = Long.parseLong(arrayAux[0]);
-			nome = arrayAux[1];
-
+			String arrayAux[] = new String[4];
+			arrayAux = line.split(";");			
+			
+			id = Long.parseLong(arrayAux[0].substring(3));
+			nome = arrayAux[1].replace("nome:", "");
+			tipo1 = arrayAux[2].replace("tipo1:", "");
+			tipo2 = arrayAux[3].replace("tipo2:", "");
+			descricao = arrayAux[4].replace("descricao", "");
+			
+			
 			Pokemon pokemon = new Pokemon();
 			pokemon.setId(id);
 			pokemon.setNome(nome);
-
-			listaPokemonMap.put(id, pokemon);
+			pokemon.setDescricao(descricao);
+			pokemon.setTipo1(tipoPokemon(tipo1));
+			pokemon.setTipo2(tipoPokemon(tipo2));
+			listaPokemonMap.add(pokemon);
 		}
 
 		bufferedReader.close();
 
 		return listaPokemonMap;
 
+	}	
+	
+	private static Tipo tipoPokemon(String tipoPokemon) {
+		List<Tipo> listaTipos = new ArrayList<>();
+		Tipo aux = null;
+		listaTipos.addAll(Arrays.asList(Tipo.ACO, Tipo.AGUA, Tipo.DRAGAO, Tipo.ELETRICO, Tipo.FANTASMA, Tipo.FOGO, Tipo.GELO, Tipo.GRAMA, Tipo.INSETO, Tipo.LUTADOR,
+				Tipo.NORMAL, Tipo.NOTURNO, Tipo.PEDRA, Tipo.PEDRA, Tipo.PSIQUICOS, Tipo.TERRA, Tipo.VENENOSO, Tipo.VOADOR));
+		for(int i = 0; i < listaTipos.size(); i++) {
+			if(listaTipos.get(i).getDescricao().equals(tipoPokemon)) {
+				aux = listaTipos.get(i);
+			}
+		}
+		return aux;
 	}
-
+	
 }
