@@ -1,1 +1,1 @@
-id:001;nome:Bulbasaur;tipo1:Grama;tipo2:Venenoso;descricao:Bulbasaur pode ser visto cochilando sob a luz do sol. Há uma semente nas costas. Ao absorver os raios do sol, a semente cresce progressivamente.;
+id:001;nome:Bulbasaur;tipo1:Grama;descricao:Bulbasaur pode ser visto cochilando sob a luz do sol. Há uma semente nas costas. Ao absorver os raios do sol, a semente cresce progressivamente.;

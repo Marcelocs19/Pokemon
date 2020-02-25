@@ -36,10 +36,22 @@ public class LeituraTxt {
 			arrayAux = line.split(";");			
 			
 			id = Long.parseLong(arrayAux[0].substring(3));
+			String aux = "";
+			
+			for(int i = 0; i < arrayAux.length; i++) {
+				aux += arrayAux[i];
+			}	
+			
+			
 			nome = arrayAux[1].replace("nome:", "");
 			tipo1 = arrayAux[2].replace("tipo1:", "");
-			tipo2 = arrayAux[3].replace("tipo2:", "");
-			descricao = arrayAux[4].replace("descricao", "");
+			if(aux.contains("tipo2:")) {
+				tipo2 = arrayAux[3].replace("tipo2:", "");
+				descricao = arrayAux[4].replace("descricao", "");
+			} else {
+				tipo2 = tipo1;
+				descricao = arrayAux[3].replace("descricao", "");
+			}
 			
 			
 			Pokemon pokemon = new Pokemon();
