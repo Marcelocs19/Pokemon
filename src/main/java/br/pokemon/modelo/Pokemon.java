@@ -34,7 +34,7 @@ public class Pokemon {
 	@Column(name = "Tipo2")
 	private Tipo tipo2;
 	
-	@Column(name = "DESCRICAO", nullable = false)
+	@Column(name = "DESCRICAO", length = 2000, nullable = false)
 	private String descricao;
 	
 	
