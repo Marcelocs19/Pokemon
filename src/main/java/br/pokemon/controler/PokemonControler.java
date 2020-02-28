@@ -1,6 +1,5 @@
 package br.pokemon.controler;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.pokemon.modelo.Pokemon;
+import br.pokemon.dto.PokemonDto;
 import br.pokemon.servico.PokemonServico;
 
 @RestController
@@ -20,8 +19,8 @@ public class PokemonControler {
 	private PokemonServico pokemonServico;
 	
 	@GetMapping
-	public ResponseEntity<List<Pokemon>> listaPokemon() throws IOException {
-		List<Pokemon> lista = pokemonServico.listaPokemons();
+	public ResponseEntity<List<PokemonDto>> listaPokemon() {
+		List<PokemonDto> lista = pokemonServico.listaPokemons();
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
