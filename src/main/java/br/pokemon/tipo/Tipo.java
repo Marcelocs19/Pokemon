@@ -18,6 +18,7 @@ public enum Tipo {
 	FANTASMA("Fantasma"),
 	DRAGAO("Dragão"),
 	NOTURNO("Noturno"),
+	FADA("Fada"),
 	ACO("Aço");
 	
 	
