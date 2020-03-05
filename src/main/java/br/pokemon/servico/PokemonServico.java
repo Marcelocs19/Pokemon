@@ -2,6 +2,7 @@ package br.pokemon.servico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,15 @@ public class PokemonServico {
 	
 	private PokemonDto convertePokemonDto(Pokemon pokemon) {
 		return new PokemonDto(pokemon);
+	}
+	
+	public PokemonDto buscaPokemonPorId(Long id) {
+		PokemonDto dto = null;
+		Optional<Pokemon> pokemon = pokemonRepositorio.findById(id);
+		if(pokemon.isPresent()) {
+			dto = convertePokemonDto(pokemon.get());
+		}
+		return dto;
 	}
 
 }

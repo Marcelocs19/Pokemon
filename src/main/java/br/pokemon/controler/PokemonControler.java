@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import br.pokemon.servico.PokemonServico;
 public class PokemonControler {
 
 	private static final String BUSCAR_TIPO_POKEMON = "/buscar";
+	private static final String BUSCAR_POKEMON_ID = "/buscar/{id}";
 	
 	@Autowired
 	private PokemonServico pokemonServico;
@@ -37,6 +39,15 @@ public class PokemonControler {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(lista);
-	}	
+	}
+	
+	@GetMapping(BUSCAR_POKEMON_ID)
+	public ResponseEntity<PokemonDto> buscaPokemonPorId(@PathVariable(name = "id", required = true) Long id) {
+		PokemonDto busca = pokemonServico.buscaPokemonPorId(id);
+		if (busca == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(busca);
+	}
 	
 }
