@@ -69,7 +69,7 @@ public class LeituraTxt {
 
 	}
 
-	private static Tipo tipoPokemon(String tipoPokemon) {
+	public static Tipo tipoPokemon(String tipoPokemon) {
 		List<Tipo> listaTipos = new ArrayList<>();
 		Tipo aux = null;
 		listaTipos.addAll(Arrays.asList(Tipo.ACO, Tipo.AGUA, Tipo.DRAGAO, Tipo.ELETRICO, Tipo.FADA, Tipo.FANTASMA, Tipo.FOGO,
