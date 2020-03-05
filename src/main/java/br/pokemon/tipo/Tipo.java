@@ -12,12 +12,13 @@ public enum Tipo {
 	LUTADOR("Lutador"),
 	VENENOSO("Venenoso"),
 	VOADOR("Voador"),
-	PSIQUICOS("Psíquicos"),
+	PSIQUICO("Psíquico"),
 	INSETO("Inseto"),
 	PEDRA("Pedra"),
 	FANTASMA("Fantasma"),
 	DRAGAO("Dragão"),
 	NOTURNO("Noturno"),
+	FADA("Fada"),
 	ACO("Aço");
 	
 	
