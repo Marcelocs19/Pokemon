@@ -12,5 +12,9 @@ import br.pokemon.tipo.Tipo;
 public interface PokemonRepositorio extends JpaRepository<Pokemon, Long> {
 	
 	List<Pokemon> findByTipo1(Tipo tipo);
+	
+	List<Pokemon> findByTipo2(Tipo tipo);
+	
+	List<Pokemon> findByTipo1AndTipo2(Tipo tipo1, Tipo tipo2);
 
 }

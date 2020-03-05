@@ -18,21 +18,30 @@ public class PokemonServico {
 	@Autowired
 	private PokemonRepositorio pokemonRepositorio;
 
-	public List<PokemonDto> listaPokemons(String tipo) {
+	public List<PokemonDto> listaPokemons(String tipo1, String tipo2) {
 		List<PokemonDto> listaPokemons = new ArrayList<>();
-		if (!tipo.isBlank()) {
-			return buscaTipo(tipo, listaPokemons);
+		if (tipo1 != null || tipo2 != null) {
+			return buscaTipo(tipo1, tipo2, listaPokemons);
 		}
 		pokemonRepositorio.findAll().forEach(p -> listaPokemons.add(convertePokemonDto(p)));
 		return listaPokemons;
 	}
 
-	private List<PokemonDto> buscaTipo(String tipo, List<PokemonDto> listaPokemons) {
-		Tipo tipoPokemon = LeituraTxt.tipoPokemon(tipo);
+	private List<PokemonDto> buscaTipo(String tipo1, String tipo2, List<PokemonDto> listaPokemons) {
+		List<Pokemon> buscaTipo;
+		if(tipo1 != null && tipo2 == null) {
+			Tipo tipoPokemon1 = LeituraTxt.tipoPokemon(tipo1);
+			buscaTipo = pokemonRepositorio.findByTipo1(tipoPokemon1);
+		} else if(tipo1 == null && tipo2 != null) {
+			Tipo tipoPokemon2 = LeituraTxt.tipoPokemon(tipo2);
+			buscaTipo = pokemonRepositorio.findByTipo2(tipoPokemon2);
+		} else {
+			Tipo tipoPokemon1 = LeituraTxt.tipoPokemon(tipo1);
+			Tipo tipoPokemon2 = LeituraTxt.tipoPokemon(tipo2);
+			buscaTipo = pokemonRepositorio.findByTipo1AndTipo2(tipoPokemon1,tipoPokemon2);
+		}
 		
-		List<Pokemon> findByTipo = pokemonRepositorio.findByTipo1(tipoPokemon);
-		findByTipo.forEach(p -> listaPokemons.add(convertePokemonDto(p)));
-		
+		buscaTipo.forEach(p -> listaPokemons.add(convertePokemonDto(p)));		
 		return listaPokemons;
 	}
 

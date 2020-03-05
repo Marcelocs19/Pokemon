@@ -20,8 +20,8 @@ public class PokemonControler {
 	private PokemonServico pokemonServico;
 	
 	@GetMapping
-	public ResponseEntity<List<PokemonDto>> listaPokemon(@RequestParam(required = false) String tipo) {
-		List<PokemonDto> lista = pokemonServico.listaPokemons(tipo);
+	public ResponseEntity<List<PokemonDto>> listaPokemon(@RequestParam(required = false) String tipo1, @RequestParam(required = false) String tipo2) {
+		List<PokemonDto> lista = pokemonServico.listaPokemons(tipo1, tipo2);
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
