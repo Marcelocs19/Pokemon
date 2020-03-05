@@ -17,8 +17,9 @@ import br.pokemon.servico.PokemonServico;
 @RequestMapping("/pokemons")
 public class PokemonControler {
 
-	private static final String BUSCAR_TIPO_POKEMON = "/buscar";
+	private static final String BUSCAR_POKEMON_TIPO = "/buscar";
 	private static final String BUSCAR_POKEMON_ID = "/buscar/{id}";
+	private static final String BUSCAR_POKEMON_NOME = "/buscarNome/{nome}";
 	
 	@Autowired
 	private PokemonServico pokemonServico;
@@ -32,7 +33,7 @@ public class PokemonControler {
 		return ResponseEntity.ok().body(lista);
 	}	
 	
-	@GetMapping(BUSCAR_TIPO_POKEMON)
+	@GetMapping(BUSCAR_POKEMON_TIPO)
 	public ResponseEntity<List<PokemonDto>> buscaTipoPokemon(@RequestParam(required = false) String tipo1, @RequestParam(required = false) String tipo2) {
 		List<PokemonDto> lista = pokemonServico.buscaTiposPokemons(tipo1, tipo2);
 		if (lista.isEmpty()) {
@@ -44,6 +45,15 @@ public class PokemonControler {
 	@GetMapping(BUSCAR_POKEMON_ID)
 	public ResponseEntity<PokemonDto> buscaPokemonPorId(@PathVariable(name = "id", required = true) Long id) {
 		PokemonDto busca = pokemonServico.buscaPokemonPorId(id);
+		if (busca == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(busca);
+	}
+	
+	@GetMapping(BUSCAR_POKEMON_NOME)
+	public ResponseEntity<PokemonDto> buscaPokemonPorNome(@PathVariable(name = "nome", required = true) String nome) {
+		PokemonDto busca = pokemonServico.buscaPokemonPorNome(nome);
 		if (busca == null) {
 			return ResponseEntity.notFound().build();
 		}

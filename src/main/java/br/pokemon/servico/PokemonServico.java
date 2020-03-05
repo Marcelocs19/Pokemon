@@ -63,5 +63,14 @@ public class PokemonServico {
 		}
 		return dto;
 	}
+	
+	public PokemonDto buscaPokemonPorNome(String nome) {
+		PokemonDto dto = null;
+		Optional<Pokemon> pokemon = pokemonRepositorio.findByNome(nome);
+		if(pokemon.isPresent()) {
+			dto = convertePokemonDto(pokemon.get());
+		}
+		return dto;
+	}
 
 }
