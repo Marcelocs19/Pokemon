@@ -74,7 +74,7 @@ public class LeituraTxt {
 		Tipo aux = null;
 		listaTipos.addAll(Arrays.asList(Tipo.ACO, Tipo.AGUA, Tipo.DRAGAO, Tipo.ELETRICO, Tipo.FADA, Tipo.FANTASMA, Tipo.FOGO,
 				Tipo.GELO, Tipo.GRAMA, Tipo.INSETO, Tipo.LUTADOR, Tipo.NORMAL, Tipo.NOTURNO, Tipo.PEDRA, Tipo.PEDRA,
-				Tipo.PSIQUICOS, Tipo.TERRA, Tipo.VENENOSO, Tipo.VOADOR));
+				Tipo.PSIQUICO, Tipo.TERRA, Tipo.VENENOSO, Tipo.VOADOR));
 		for (int i = 0; i < listaTipos.size(); i++) {
 			if (listaTipos.get(i).getDescricao().equals(tipoPokemon)) {
 				aux = listaTipos.get(i);
