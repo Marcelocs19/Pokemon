@@ -15,10 +15,7 @@
 	<name>pokemon</name>
 	<description>project for Spring Boot</description>
 
-	<properties>
-		
-	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
