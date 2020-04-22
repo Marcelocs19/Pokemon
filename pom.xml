@@ -15,7 +15,10 @@
 	<name>pokemon</name>
 	<description>project for Spring Boot</description>
 
-	
+	<properties>
+		<java.version>14</java.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
