@@ -73,6 +73,12 @@
 			<version>0.9.1</version>
 		</dependency>
 
+		<!-- Possibilita o retorno ser em xml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
