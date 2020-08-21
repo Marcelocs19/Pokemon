@@ -22,18 +22,7 @@ public class ExcecaoPokemon extends ResponseEntityExceptionHandler {
 //	private MessageSource messageSource;
 
 	@ExceptionHandler(value = NegocioExcecao.class)
-	public ResponseEntity<Object> handleNegocio(MethodArgumentNotValidException ex, WebRequest request) {
-		var status = HttpStatus.BAD_REQUEST;
-		Excecao excecao = new Excecao();
-
-		excecao.setStatus(status.value());
-		excecao.setTitulo(ex.getMessage());
-		excecao.setDataHora(OffsetDateTime.now());
-		return handleExceptionInternal(ex, excecao, new HttpHeaders(), status, request);
-	}
-
-	@ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
-	public ResponseEntity<Object> handleConflito(RuntimeException ex, WebRequest request) {
+	public ResponseEntity<Object> handleNegocio(NegocioExcecao ex, WebRequest request) {
 		var status = HttpStatus.CONFLICT;
 		Excecao excecao = new Excecao();
 
