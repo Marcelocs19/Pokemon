@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import br.pokemon.configurar.LeituraTxt;
 import br.pokemon.dto.PokemonDto;
-import br.pokemon.excecao.NegocioExcecao;
 import br.pokemon.form.PokemonForm;
 import br.pokemon.modelo.Pokemon;
 import br.pokemon.repositorio.PokemonRepositorio;
@@ -28,7 +27,7 @@ public class PokemonServico {
 	public PokemonDto criarPokemon(PokemonForm pokemon) {
 		Optional<Pokemon> findByNome = pokemonRepositorio.findByNome(pokemon.getNome());	
 		if(findByNome.isPresent()) {
-			throw new NegocioExcecao("Já existe um pokemon cadastrado com esse nome");
+			throw new IllegalStateException("Já existe um pokemon cadastrado com esse nome");
 		}
 		Pokemon novoPokemon = new Pokemon();
 		novoPokemon.setDescricao(pokemon.getDescricao());
