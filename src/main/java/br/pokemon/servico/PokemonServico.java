@@ -29,12 +29,7 @@ public class PokemonServico {
 		if(findByNome.isPresent()) {
 			throw new IllegalStateException("Já existe um pokemon cadastrado com esse nome");
 		}
-		Pokemon novoPokemon = new Pokemon();
-		novoPokemon.setDescricao(pokemon.getDescricao());
-		novoPokemon.setNome(pokemon.getNome());
-		novoPokemon.setTipo1(pokemon.getTipo1());
-		novoPokemon.setTipo2(pokemon.getTipo2());
-		Pokemon salvo = pokemonRepositorio.save(novoPokemon);
+		Pokemon salvo = pokemonRepositorio.save(modelMapper.map(pokemon, Pokemon.class));
 		return  modelMapper.map(salvo, PokemonDto.class);
 	}
 	
