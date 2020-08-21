@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.pokemon.configurar.LeituraTxt;
 import br.pokemon.dto.PokemonDto;
+import br.pokemon.excecao.NegocioExcecao;
+import br.pokemon.form.PokemonForm;
 import br.pokemon.modelo.Pokemon;
 import br.pokemon.repositorio.PokemonRepositorio;
 import br.pokemon.tipo.Tipo;
@@ -19,9 +22,26 @@ public class PokemonServico {
 	@Autowired
 	private PokemonRepositorio pokemonRepositorio;
 
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	public PokemonDto criarPokemon(PokemonForm pokemon) {
+		Optional<Pokemon> findByNome = pokemonRepositorio.findByNome(pokemon.getNome());	
+		if(findByNome.isPresent()) {
+			throw new NegocioExcecao("Já existe um pokemon cadastrado com esse nome");
+		}
+		Pokemon novoPokemon = new Pokemon();
+		novoPokemon.setDescricao(pokemon.getDescricao());
+		novoPokemon.setNome(pokemon.getNome());
+		novoPokemon.setTipo1(pokemon.getTipo1());
+		novoPokemon.setTipo2(pokemon.getTipo2());
+		Pokemon salvo = pokemonRepositorio.save(novoPokemon);
+		return  modelMapper.map(salvo, PokemonDto.class);
+	}
+	
 	public List<PokemonDto> listaPokemons() {
 		List<PokemonDto> listaPokemons = new ArrayList<>();
-		pokemonRepositorio.findAll().forEach(p -> listaPokemons.add(convertePokemonDto(p)));
+		pokemonRepositorio.findAll().forEach(p -> listaPokemons.add(modelMapper.map(p, PokemonDto.class)));
 		return listaPokemons;
 	}	
 
@@ -47,19 +67,16 @@ public class PokemonServico {
 			buscaTipo = pokemonRepositorio.findByTipo1AndTipo2(tipoPokemon1,tipoPokemon2);
 		}
 		
-		buscaTipo.forEach(p -> listaPokemons.add(convertePokemonDto(p)));		
+		buscaTipo.stream().forEach(p -> listaPokemons.add(modelMapper.map(p, PokemonDto.class)));
 		return listaPokemons;
 	}
 	
-	private PokemonDto convertePokemonDto(Pokemon pokemon) {
-		return new PokemonDto(pokemon);
-	}
 	
 	public PokemonDto buscaPokemonPorId(Long id) {
 		PokemonDto dto = null;
 		Optional<Pokemon> pokemon = pokemonRepositorio.findById(id);
 		if(pokemon.isPresent()) {
-			dto = convertePokemonDto(pokemon.get());
+			dto = modelMapper.map(pokemon.get(), PokemonDto.class);
 		}
 		return dto;
 	}
@@ -68,7 +85,7 @@ public class PokemonServico {
 		PokemonDto dto = null;
 		Optional<Pokemon> pokemon = pokemonRepositorio.findByNome(nome);
 		if(pokemon.isPresent()) {
-			dto = convertePokemonDto(pokemon.get());
+			dto = modelMapper.map(pokemon.get(), PokemonDto.class);
 		}
 		return dto;
 	}
