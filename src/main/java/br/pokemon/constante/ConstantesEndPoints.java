@@ -8,8 +8,8 @@ public class ConstantesEndPoints {
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface EndPointPokemon {
 		String pokemonRequest = "/pokemons";
-		String bucarPokemonTipo = "/buscar";
-		String buscarPokemonId = "/buscar/{id}";
-		String buscarPokemonNome = "/buscarNome/{nome}";
+		String pokemonTipo = "/tipos";
+		String pokemonId = "/{id}";
+		String pokemonNome = "nomes/{nome}";
 	}
 }
