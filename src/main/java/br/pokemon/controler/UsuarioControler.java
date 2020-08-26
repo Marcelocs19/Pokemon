@@ -26,7 +26,7 @@ public class UsuarioControler {
 	
 	@Autowired
 	private UsuarioServico usuarioServico;
-	
+		
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	@Transactional

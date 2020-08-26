@@ -48,13 +48,9 @@ public class UsuarioServico {
 			throw new NegocioExcecao("Nenhum usuário foi encontrado com esse apelido");
 		}
 		
-		Usuario usuario2 = findByApelido.get();
-		
-		usuario2.getListaPokemons().add(findById.get());
-		
-		usuarioRepositorio.save(usuario2);
+		findByApelido.get().getListaPokemons().add(findById.get());
 						
-		return modelMapper.map(usuario2, UsuarioCompletoDto.class);
+		return modelMapper.map(usuarioRepositorio.saveAndFlush(findByApelido.get()), UsuarioCompletoDto.class);
 		
 	}
 	
