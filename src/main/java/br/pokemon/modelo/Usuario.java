@@ -1,12 +1,16 @@
 package br.pokemon.modelo;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -32,14 +36,18 @@ public class Usuario {
 	private String nome;
 
 	@NotBlank(message = "O campo apelido é obrigatório.")
-	@Column(name = "APELIDO", nullable = false)
+	@Column(name = "APELIDO", nullable = false, unique = true)
 	private String apelido;
 	
 	@NotBlank(message = "O campo nome é obrigatório.")
 	@Column(name = "SENHA", nullable = false)
 	private String senha;
+		
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "tb_pokemon_usuario", 
+		joinColumns = @JoinColumn(name = "pokemon_id"),
+		inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+	private List<Pokemon> listaPokemons = new ArrayList<>();
 	
-	@ManyToMany(mappedBy = "listaUsuarios")
-	private Set<Pokemon> listaPokemons;
 
 }

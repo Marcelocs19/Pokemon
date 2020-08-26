@@ -12,4 +12,10 @@ public class ConstantesEndPoints {
 		String pokemonId = "/{id}";
 		String pokemonNome = "nomes/{nome}";
 	}
+	
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface EndPointUsuario {
+		String usuarioRequest = "/usuarios";
+		String adicionaPokemon = "/pokemons/{id}";
+	}
 }

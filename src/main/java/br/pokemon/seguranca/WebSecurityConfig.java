@@ -26,10 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			httpSecurity.headers().frameOptions().disable();
 		}
 		
-		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers("/h2/**").permitAll()
-				.antMatchers(HttpMethod.POST,"/login").permitAll()				
-				.anyRequest().authenticated().and()
+		httpSecurity.csrf().disable()
+				.authorizeRequests()
+					.antMatchers("/h2/**").permitAll()
+					.antMatchers(HttpMethod.POST,"/usuarios/**").permitAll()
+					.antMatchers(HttpMethod.POST,"/login").permitAll()				
+					.anyRequest().authenticated().and()
 
 				// filtra requisições de login
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),

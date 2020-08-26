@@ -25,7 +25,6 @@ import br.pokemon.servico.PokemonServico;
 @RestController
 @RequestMapping(ConstantesEndPoints.EndPointPokemon.pokemonRequest)
 public class PokemonControler {
-
 	
 	@Autowired
 	private PokemonServico pokemonServico;
@@ -33,12 +32,12 @@ public class PokemonControler {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	@Transactional
-	public ResponseEntity<PokemonDto> criarPokemon(@Valid @RequestBody PokemonForm pokemon){
+	public ResponseEntity<PokemonDto> criarPokemon(@Valid @RequestBody PokemonForm pokemon) {
 		return ResponseEntity.ok().body(pokemonServico.criarPokemon(pokemon));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<PokemonDto>> listaPokemon() {
+	public ResponseEntity<List<PokemonDto>> listarPokemon() {
 		List<PokemonDto> lista = pokemonServico.listaPokemons();
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -47,7 +46,7 @@ public class PokemonControler {
 	}	
 	
 	@GetMapping(ConstantesEndPoints.EndPointPokemon.pokemonTipo)
-	public ResponseEntity<List<PokemonDto>> buscaTipoPokemon(@RequestParam(required = false) String tipo1, @RequestParam(required = false) String tipo2) {
+	public ResponseEntity<List<PokemonDto>> buscarTipoPokemon(@RequestParam(required = false) String tipo1, @RequestParam(required = false) String tipo2) {
 		List<PokemonDto> lista = pokemonServico.buscaTiposPokemons(tipo1, tipo2);
 		if (lista.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -56,7 +55,7 @@ public class PokemonControler {
 	}
 	
 	@GetMapping(ConstantesEndPoints.EndPointPokemon.pokemonId)
-	public ResponseEntity<PokemonDto> buscaPokemonPorId(@PathVariable(name = "id", required = true) Long id) {
+	public ResponseEntity<PokemonDto> buscarPokemonPorId(@PathVariable(name = "id", required = true) Long id) {
 		PokemonDto busca = pokemonServico.buscaPokemonPorId(id);
 		if (busca == null) {
 			return ResponseEntity.notFound().build();
@@ -65,7 +64,7 @@ public class PokemonControler {
 	}
 	
 	@GetMapping(ConstantesEndPoints.EndPointPokemon.pokemonNome)
-	public ResponseEntity<PokemonDto> buscaPokemonPorNome(@PathVariable(name = "nome", required = true) String nome) {
+	public ResponseEntity<PokemonDto> buscarPokemonPorNome(@PathVariable(name = "nome", required = true) String nome) {
 		PokemonDto busca = pokemonServico.buscaPokemonPorNome(nome);
 		if (busca == null) {
 			return ResponseEntity.notFound().build();

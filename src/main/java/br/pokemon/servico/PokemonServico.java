@@ -30,8 +30,7 @@ public class PokemonServico {
 		if(findByNome.isPresent()) {
 			throw new NegocioExcecao("Já existe um pokemon cadastrado com esse nome");
 		}
-		Pokemon salvo = pokemonRepositorio.save(modelMapper.map(pokemon, Pokemon.class));
-		return  modelMapper.map(salvo, PokemonDto.class);
+		return  modelMapper.map(pokemonRepositorio.saveAndFlush(modelMapper.map(pokemon, Pokemon.class)), PokemonDto.class);
 	}
 	
 	public List<PokemonDto> listaPokemons() {
