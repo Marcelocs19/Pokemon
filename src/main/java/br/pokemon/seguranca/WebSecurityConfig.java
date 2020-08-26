@@ -1,6 +1,10 @@
 package br.pokemon.seguranca;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,9 +15,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private Environment env;
+	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
+		
+		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
+			httpSecurity.headers().frameOptions().disable();
+		}
+		
+		httpSecurity.csrf().disable().authorizeRequests()
+				.antMatchers("/h2/**").permitAll()
+				.antMatchers(HttpMethod.POST,"/login").permitAll()				
 				.anyRequest().authenticated().and()
 
 				// filtra requisições de login
