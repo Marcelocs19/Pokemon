@@ -1,5 +1,7 @@
 package br.pokemon.modelo;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -40,6 +45,12 @@ public class Pokemon {
 	
 	@Column(name = "DESCRICAO", length = 2000, nullable = false)
 	private String descricao;
+	
+	@ManyToMany
+	@JoinTable(name = "tb_pokemon_usuario", 
+		joinColumns = @JoinColumn(name = "pokemon_id"),
+		inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+	private Set<Usuario> listaUsuarios;
 	
 	
 	
