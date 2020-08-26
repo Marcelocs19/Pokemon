@@ -16,6 +16,7 @@ public class ConstantesEndPoints {
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface EndPointUsuario {
 		String usuarioRequest = "/usuarios";
+		String listaPokemon = "/pokemons";
 		String adicionaPokemon = "/pokemons/{id}";
 	}
 }

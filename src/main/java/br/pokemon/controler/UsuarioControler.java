@@ -1,11 +1,14 @@
 package br.pokemon.controler;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.pokemon.constante.ConstantesEndPoints;
+import br.pokemon.dto.PokemonDto;
 import br.pokemon.dto.UsuarioCompletoDto;
 import br.pokemon.dto.UsuarioDto;
 import br.pokemon.form.CadastroUsuarioForm;
@@ -38,6 +42,11 @@ public class UsuarioControler {
 	@Transactional
 	public ResponseEntity<UsuarioCompletoDto> adicionarPokemonNaLista(@PathVariable(name = "id", required = true) Long id, @Valid @RequestBody UsuarioForm usuario) {
 		return ResponseEntity.ok().body(usuarioServico.adicionarPokemonNaLista(id, usuario));
+	}
+	
+	@GetMapping(ConstantesEndPoints.EndPointUsuario.listaPokemon)
+	public ResponseEntity<List<PokemonDto>> listarPokemonsUsuario(@Valid @RequestBody UsuarioForm usuario) {
+		return ResponseEntity.ok().body(usuarioServico.listarPokemonsUsuario(usuario));
 	}
 	
 }
