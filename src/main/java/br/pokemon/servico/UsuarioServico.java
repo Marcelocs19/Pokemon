@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.pokemon.dto.PokemonDto;
 import br.pokemon.dto.UsuarioCompletoDto;
 import br.pokemon.dto.UsuarioDto;
+import br.pokemon.enums.Perfil;
 import br.pokemon.excecao.NegocioExcecao;
 import br.pokemon.form.CadastroUsuarioForm;
 import br.pokemon.form.UsuarioForm;
@@ -28,16 +30,22 @@ public class UsuarioServico {
 	@Autowired
 	private PokemonRepositorio pokemonRepositorio;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 		
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public UsuarioDto criarUsuario(CadastroUsuarioForm usuario) {
+	public UsuarioDto criarUsuario(CadastroUsuarioForm usuario) {		
 		Optional<Usuario> findByApelido = usuarioRepositorio.findByApelido(usuario.getApelido());
 		if(findByApelido.isPresent()) {
 			throw new NegocioExcecao("Já existe um usuário cadastrado com esse apelido");
 		}
-		return modelMapper.map(usuarioRepositorio.saveAndFlush(modelMapper.map(usuario, Usuario.class)), UsuarioDto.class);
+		usuario.setSenha(pe.encode(usuario.getSenha()));
+		Usuario novoUsuario = modelMapper.map(usuario, Usuario.class);
+		novoUsuario.addPerfil((usuario.isAdminCliente()) ? Perfil.ADMIN : Perfil.CLIENTE);
+		return modelMapper.map(usuarioRepositorio.saveAndFlush(novoUsuario), UsuarioDto.class);
 	}
 	
 	public UsuarioCompletoDto adicionarPokemonNaLista(Long id, UsuarioForm usuario) {

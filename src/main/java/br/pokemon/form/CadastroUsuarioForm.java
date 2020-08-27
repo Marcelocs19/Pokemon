@@ -16,4 +16,6 @@ public class CadastroUsuarioForm {
 	@NotBlank(message = "O campo senha é obrigatório.")
 	private String senha;
 	
+	private boolean adminCliente;
+	
 }
