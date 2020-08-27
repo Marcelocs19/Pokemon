@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,12 @@ public class UsuarioControler {
 	@Autowired
 	private UsuarioServico usuarioServico;
 		
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@GetMapping
+	public ResponseEntity<List<UsuarioDto>> listarUsuarios() {
+		return ResponseEntity.ok().body(usuarioServico.listarUsuarios());
+	}
+	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	@Transactional
@@ -45,8 +52,8 @@ public class UsuarioControler {
 	}
 	
 	@GetMapping(ConstantesEndPoints.EndPointUsuario.listaPokemon)
-	public ResponseEntity<List<PokemonDto>> listarPokemonsUsuario(@Valid @RequestBody UsuarioForm usuario) {
-		return ResponseEntity.ok().body(usuarioServico.listarPokemonsUsuario(usuario));
+	public ResponseEntity<List<PokemonDto>> listarPokemonsUsuario() {
+		return ResponseEntity.ok().body(usuarioServico.listarPokemonsUsuario());
 	}
 	
 }

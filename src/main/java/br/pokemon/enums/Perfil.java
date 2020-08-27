@@ -1,6 +1,6 @@
 package br.pokemon.enums;
 
-import br.pokemon.excecao.NegocioExcecao;
+import br.pokemon.excecao.ErrosExcecao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,7 +27,7 @@ public enum Perfil {
 			}
 		}
 		
-		throw new NegocioExcecao("Id inválido: " + cod);
+		throw new ErrosExcecao("Id inválido: " + cod);
 	}
 	
 }

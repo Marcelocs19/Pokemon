@@ -16,13 +16,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ExcecaoPokemon extends ResponseEntityExceptionHandler {
+public class ExcecaoAPI extends ResponseEntityExceptionHandler {
 
 //	@Autowired
 //	private MessageSource messageSource;
 
-	@ExceptionHandler(value = NegocioExcecao.class)
-	public ResponseEntity<Object> handleNegocio(NegocioExcecao ex, WebRequest request) {
+	@ExceptionHandler(value = ErrosExcecao.class)
+	public ResponseEntity<Object> handleConflito(ErrosExcecao ex, WebRequest request) {
 		var status = HttpStatus.CONFLICT;
 		Excecao excecao = new Excecao();
 
@@ -31,7 +31,7 @@ public class ExcecaoPokemon extends ResponseEntityExceptionHandler {
 		excecao.setDataHora(OffsetDateTime.now());
 		return handleExceptionInternal(ex, excecao, new HttpHeaders(), status, request);
 	}
-
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -51,5 +51,6 @@ public class ExcecaoPokemon extends ResponseEntityExceptionHandler {
 		excecao.setCampos(campos);
 		return super.handleExceptionInternal(ex, excecao, headers, status, request);
 	}
+
 
 }
