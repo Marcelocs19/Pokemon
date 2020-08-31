@@ -49,10 +49,10 @@ public class LeituraTxt {
 				tipo1 = arrayAux[2].replace("tipo1:", "");
 				if (aux.toString().contains("tipo2:")) {
 					tipo2 = arrayAux[3].replace("tipo2:", "");
-					descricao = arrayAux[4].replace("descricao", "");
+					descricao = arrayAux[4].replace("descricao:", "");
 				} else {
 					tipo2 = tipo1;
-					descricao = arrayAux[3].replace("descricao", "");
+					descricao = arrayAux[3].replace("descricao:", "");
 				}
 
 				Pokemon pokemon = new Pokemon();
