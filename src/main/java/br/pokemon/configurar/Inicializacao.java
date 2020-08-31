@@ -33,6 +33,7 @@ public class Inicializacao implements CommandLineRunner {
 		admin.setApelido("admin");
 		admin.setNome("Marcelo");
 		admin.setSenha(pe.encode("123"));
+		admin.setEmail("marcelo@gmail.com");
 		admin.addPerfil(Perfil.ADMIN);
 		
 		usuarioRepositorio.saveAndFlush(admin);

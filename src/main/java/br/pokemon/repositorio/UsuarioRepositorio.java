@@ -11,4 +11,6 @@ import br.pokemon.modelo.Usuario;
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	
 	Optional<Usuario> findByApelido(String apelido);
+	
+	Optional<Usuario> findByEmail(String email);
 }

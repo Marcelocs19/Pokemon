@@ -41,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 					.antMatchers("/h2/**").permitAll()
 					.antMatchers(HttpMethod.POST,"/usuarios").permitAll()
-					.antMatchers(HttpMethod.POST,"/login").permitAll()				
+					.antMatchers(HttpMethod.POST,"/login").permitAll()
+					.antMatchers(HttpMethod.POST,"/autorizacao/novaSenha/**").permitAll()
 					.anyRequest().authenticated();
 		httpSecurity.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		httpSecurity.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));

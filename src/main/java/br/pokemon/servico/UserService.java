@@ -4,7 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.pokemon.seguranca.UserSpringSecurity;
 
-public class AutenticacaoServico {
+public class UserService {
 	
 	public static UserSpringSecurity autenticado() {
 		try {

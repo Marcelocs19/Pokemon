@@ -41,6 +41,10 @@ public class Usuario {
 	@NotBlank(message = "O campo nome é obrigatório.")
 	@Column(name = "NOME", nullable = false)
 	private String nome;
+	
+	@NotBlank(message = "O campo email é obrigatório.")
+	@Column(name = "EMAIL", nullable = false, unique = true)
+	private String email;
 
 	@NotBlank(message = "O campo apelido é obrigatório.")
 	@Column(name = "APELIDO", nullable = false, unique = true)
