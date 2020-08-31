@@ -14,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,35 +43,35 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} catch(AuthenticationException e1) {
+			response.setStatus(401);
+			response.setContentType("application/json");
+			try {
+				response.getWriter().append(json());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return null;
 		
 	}
 
+	private String json() {
+		long data = new Date().getTime();
+		return "{\"timestamp\": " + data + ", "
+				+ "\"status\": 401, "
+				+ "\"error\": \"Apelido ou senha inválidos\", "
+				+ "\"path\": \"/login\"}";
+	}
+	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 		String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
 		response.addHeader("Authorization", "Bearer " + token);
+		response.addHeader("access-control-expose-headers", "Authorization");
 	}
 	
-	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
-		@Override
-		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-				AuthenticationException exception) throws IOException, ServletException {
-			response.setStatus(401);
-			response.setContentType("application/json");
-			response.getWriter().append(json());
-		}
-		
-		private String json() {
-			long data = new Date().getTime();
-			return "{\"timestamp\": " + data + ", "
-					+ "\"status\": 401, "
-					+ "\"error\": \"Apelido ou senha inválidos\", "
-					+ "\"path\": \"/login\"}";
-		}
-	}
 
 }

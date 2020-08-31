@@ -69,7 +69,7 @@ public class UsuarioServico {
 	}
 
 	public List<PokemonDto> listarPokemonsUsuario() {
-		UserSpringSecurity user = Servico.autenticado();
+		UserSpringSecurity user = AutenticacaoServico.autenticado();
 		if (user == null || !user.hasRole(Perfil.ADMIN)) {
 			throw new ErrosExcecao("Nenhum usuário foi encontrado com esse apelido");
 		}
