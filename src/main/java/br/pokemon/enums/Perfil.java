@@ -1,6 +1,6 @@
 package br.pokemon.enums;
 
-import br.pokemon.excecao.ErrosExcecao;
+import br.pokemon.excecoes.ErrosExcecao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

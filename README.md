@@ -91,19 +91,8 @@ Exemplo json:
 }
 ```
 
-4. 
+4. Método para adicionar um pokemon a um usuário:
 Post - http://localhost:8080/usuarios/pokemons/1
-```
-Postman
-Adicionar no Body, um json com o apelido e senha.
-Exemplo:
-http://localhost:8080/usuarios/pokemons/1
-Exemplo json:
-{    
-    "apelido": "teste",
-    "senha": "1234"
-}
-```
 
 5. Método que lista os pokemons de um usuário:
 Get - http://localhost:8080/usuarios/pokemons

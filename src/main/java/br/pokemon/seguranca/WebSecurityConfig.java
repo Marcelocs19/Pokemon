@@ -16,6 +16,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import br.pokemon.seguranca.token.JWTAuthenticationFilter;
+import br.pokemon.seguranca.token.JWTAuthorizationFilter;
+import br.pokemon.seguranca.token.JWTUtil;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
