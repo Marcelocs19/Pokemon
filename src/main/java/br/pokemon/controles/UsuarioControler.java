@@ -22,7 +22,6 @@ import br.pokemon.dtos.UsuarioCompletoDto;
 import br.pokemon.dtos.UsuarioDto;
 import br.pokemon.endpoints.ConstantesEndPoints;
 import br.pokemon.forms.CadastroUsuarioForm;
-import br.pokemon.forms.UsuarioForm;
 import br.pokemon.servicos.UsuarioServico;
 
 @RestController
@@ -47,8 +46,8 @@ public class UsuarioControler {
 	
 	@PostMapping(ConstantesEndPoints.EndPointUsuario.adicionaPokemon)
 	@Transactional
-	public ResponseEntity<UsuarioCompletoDto> adicionarPokemonNaLista(@PathVariable(name = "id", required = true) Long id, @Valid @RequestBody UsuarioForm usuario) {
-		return ResponseEntity.ok().body(usuarioServico.adicionarPokemonNaLista(id, usuario));
+	public ResponseEntity<UsuarioCompletoDto> adicionarPokemonNaLista(@PathVariable(name = "id", required = true) Long id) {
+		return ResponseEntity.ok().body(usuarioServico.adicionarPokemonNaLista(id));
 	}
 	
 	@GetMapping(ConstantesEndPoints.EndPointUsuario.listaPokemon)
