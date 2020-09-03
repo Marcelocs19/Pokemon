@@ -1,8 +1,5 @@
 package br.pokemon.modelos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,11 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.pokemon.constantes.Tipo;
 import lombok.AllArgsConstructor;
@@ -46,11 +40,5 @@ public class Pokemon {
 	
 	@Column(name = "DESCRICAO", length = 2000, nullable = false)
 	private String descricao;
-	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "listaPokemons")
-	private List<Usuario> listaUsuarios = new ArrayList<>();
-	
-	
-	
+		
 }
