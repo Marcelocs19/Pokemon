@@ -61,7 +61,7 @@ public class Usuario {
 	private List<Pokemon> listaPokemons = new ArrayList<>();
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "PERFIS")
+	@CollectionTable(name = "PERFIL")
 	private Set<Integer> perfis = new HashSet<>();
 	
 	public Set<Perfil> getPerfis() {

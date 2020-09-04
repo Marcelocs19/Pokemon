@@ -29,14 +29,13 @@ public class Inicializacao implements CommandLineRunner {
 		
 		pokemonRepositorio.saveAll(LeituraTxt.leitura());
 		
-		Usuario admin = new Usuario();
-		admin.setApelido("admin");
-		admin.setNome("Marcelo");
-		admin.setSenha(pe.encode("123"));
-		admin.setEmail("marcelo@gmail.com");
-		admin.addPerfil(Perfil.ADMIN);
-		
-		usuarioRepositorio.saveAndFlush(admin);
+//		Usuario admin = new Usuario();
+//		admin.setApelido("admin");
+//		admin.setNome("Marcelo");
+//		admin.setSenha(pe.encode("123"));
+//		admin.setEmail("marcelo@gmail.com");
+//		admin.addPerfil(Perfil.ADMIN);		
+//		usuarioRepositorio.saveAndFlush(admin);
 		
 	}
 	
