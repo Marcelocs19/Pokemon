@@ -6,7 +6,7 @@ Pokedex, criação de uma aplicação rest de uma pokedex pessoal.
 Para compilar e rodar está aplicação você precisa:
 * [Lombok](https://projectlombok.org/download)
 
-* [MySQL](https://dev.mysql.com/downloads/installer/)
+* [Postgre 12.4](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 
 * [Java SE 14](https://www.oracle.com/java/technologies/javase/jdk14-archive-downloads.html)
 
@@ -16,19 +16,6 @@ Para compilar e rodar está aplicação você precisa:
 Você pode clonar este repositório, pelo git usando:
 ```
 https://github.com/Marcelocs19/Pokemon
-```
-### MySQL
-```
-1. create database pokemon;
-```
-```
-2. create user 'user'@'%' identified by '123456';
-```
-```
-3. grant all on pokemon.* to 'user'@'%';
-```
-```
-4. use pokemon;
 ```
 
 ### Rodar a aplicação localmente
