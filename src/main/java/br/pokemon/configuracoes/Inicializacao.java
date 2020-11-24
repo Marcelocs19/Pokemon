@@ -12,12 +12,14 @@ public class Inicializacao implements CommandLineRunner {
 	@Autowired
 	private PokemonRepositorio pokemonRepositorio;	
 	
+	private LeituraTxt leituraTxt = new LeituraTxt();
+	
 	@Override
 	public void run(String... args) throws Exception {
 	
 		pokemonRepositorio.deleteAll();
 		
-		pokemonRepositorio.saveAll(LeituraTxt.leitura());
+		pokemonRepositorio.saveAll(leituraTxt.leitura());
 		
 	}
 	

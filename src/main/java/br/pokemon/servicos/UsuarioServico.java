@@ -38,9 +38,8 @@ public class UsuarioServico {
 	private ModelMapper modelMapper;
 
 	public List<UsuarioDto> listarUsuarios() {
-		List<Usuario> findAll = usuarioRepositorio.findAll();
 		List<UsuarioDto> retorno = new ArrayList<>();
-		findAll.stream().forEach(u -> retorno.add(modelMapper.map(u, UsuarioDto.class)));
+		usuarioRepositorio.findAll().stream().forEach(u -> retorno.add(modelMapper.map(u, UsuarioDto.class)));
 		
 		return retorno;
 	}
