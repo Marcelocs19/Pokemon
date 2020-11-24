@@ -25,6 +25,8 @@ public class PokemonServico {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	private LeituraTxt leituraTxt = new LeituraTxt();
+	
 	public PokemonDto criarPokemon(PokemonForm pokemon) {
 		Optional<Pokemon> findByNome = pokemonRepositorio.findByNome(pokemon.getNome());	
 		if(findByNome.isPresent()) {
@@ -41,7 +43,7 @@ public class PokemonServico {
 
 	public List<PokemonDto> buscaTiposPokemons(String tipo1, String tipo2) {
 		List<PokemonDto> listaPokemons = new ArrayList<>();
-		if (tipo1 != null || tipo2 != null) {
+		if (!tipo1.isBlank() || !tipo2.isBlank()) {
 			return buscaTipo(tipo1, tipo2, listaPokemons);
 		}
 		return listaPokemons();		
@@ -49,15 +51,15 @@ public class PokemonServico {
 
 	private List<PokemonDto> buscaTipo(String tipo1, String tipo2, List<PokemonDto> listaPokemons) {
 		List<Pokemon> buscaTipo;		
-		if(tipo1 != null && tipo2 == null) {
-			Tipo tipoPokemon1 = LeituraTxt.tipoPokemon(tipo1);
+		if (!tipo1.isBlank() && tipo2.isBlank()) {
+			Tipo tipoPokemon1 = leituraTxt.tipoPokemon(tipo1);
 			buscaTipo = pokemonRepositorio.findByTipo1(tipoPokemon1);
-		} else if(tipo1 == null && tipo2 != null) {
-			Tipo tipoPokemon2 = LeituraTxt.tipoPokemon(tipo2);
+		} else if (tipo1.isBlank() && !tipo2.isBlank()) {
+			Tipo tipoPokemon2 = leituraTxt.tipoPokemon(tipo2);
 			buscaTipo = pokemonRepositorio.findByTipo2(tipoPokemon2);
 		} else {
-			Tipo tipoPokemon1 = LeituraTxt.tipoPokemon(tipo1);
-			Tipo tipoPokemon2 = LeituraTxt.tipoPokemon(tipo2);
+			Tipo tipoPokemon1 = leituraTxt.tipoPokemon(tipo1);
+			Tipo tipoPokemon2 = leituraTxt.tipoPokemon(tipo2);
 			buscaTipo = pokemonRepositorio.findByTipo1AndTipo2(tipoPokemon1,tipoPokemon2);
 		}
 		
@@ -67,7 +69,7 @@ public class PokemonServico {
 	
 	
 	public PokemonDto buscaPokemonPorId(Long id) {
-		PokemonDto dto = null;
+		PokemonDto dto = new PokemonDto();
 		Optional<Pokemon> pokemon = pokemonRepositorio.findById(id);
 		if(pokemon.isPresent()) {
 			dto = modelMapper.map(pokemon.get(), PokemonDto.class);
@@ -76,7 +78,7 @@ public class PokemonServico {
 	}
 	
 	public PokemonDto buscaPokemonPorNome(String nome) {
-		PokemonDto dto = null;
+		PokemonDto dto = new PokemonDto();
 		Optional<Pokemon> pokemon = pokemonRepositorio.findByNome(nome);
 		if(pokemon.isPresent()) {
 			dto = modelMapper.map(pokemon.get(), PokemonDto.class);

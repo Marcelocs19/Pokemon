@@ -10,42 +10,39 @@ import java.util.List;
 
 import br.pokemon.constantes.Tipo;
 import br.pokemon.modelos.Pokemon;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
 public class LeituraTxt {
 	
-	private LeituraTxt() {}
+	private static String path = "src/main/resources/Lista Pokemons.txt";
+	
+	private List<Tipo> listaTipos = Arrays.asList(Tipo.ACO, Tipo.AGUA, Tipo.DRAGAO, Tipo.ELETRICO, Tipo.FADA, Tipo.FANTASMA, Tipo.FOGO,
+			Tipo.GELO, Tipo.GRAMA, Tipo.INSETO, Tipo.LUTADOR, Tipo.NORMAL, Tipo.NOTURNO, Tipo.PEDRA, Tipo.PEDRA,
+			Tipo.PSIQUICO, Tipo.TERRA, Tipo.VENENOSO, Tipo.VOADOR);
 
-	public static List<Pokemon> leitura() throws IOException {
-		String path = "src/main/resources/Lista Pokemons.txt";
 
+	public List<Pokemon> leitura() throws IOException {
 		File fileReader = new File(path);
-		FileReader fr = new FileReader(fileReader);
+		
 		List<Pokemon> listaPokemonMap = new ArrayList<>();
-		try (BufferedReader bufferedReader = new BufferedReader(fr)) {
-
-			Long id = 0L;
-			String nome = "";
-			String tipo1 = "";
-			String tipo2 = "";
-			String descricao = "";
-			String line = "";
+		
+		var tipo1 = "";
+		var tipo2 = "";
+		var descricao = "";
+		
+		try (FileReader fr = new FileReader(fileReader); BufferedReader bufferedReader = new BufferedReader(fr)) {
 
 			while (bufferedReader.ready()) {
-
-				line = bufferedReader.readLine();
+				var line = bufferedReader.readLine();
 
 				String[] arrayAux = new String[4];
 				arrayAux = line.split(";");
 
-				id = Long.parseLong(arrayAux[0].substring(3));
 				StringBuilder aux = new StringBuilder();
 
-				for (int i = 0; i < arrayAux.length; i++) {
-					aux.append(arrayAux[i]);
-				}
+				Arrays.asList(arrayAux).forEach(i -> aux.append(i));				
 
-				nome = arrayAux[1].replace("nome:", "");
 				tipo1 = arrayAux[2].replace("tipo1:", "");
 				if (aux.toString().contains("tipo2:")) {
 					tipo2 = arrayAux[3].replace("tipo2:", "");
@@ -56,11 +53,13 @@ public class LeituraTxt {
 				}
 
 				Pokemon pokemon = new Pokemon();
-				pokemon.setId(id);
-				pokemon.setNome(nome);
+				
+				pokemon.setId(Long.parseLong(arrayAux[0].substring(3)));
+				pokemon.setNome(arrayAux[1].replace("nome:", ""));
 				pokemon.setDescricao(descricao);
 				pokemon.setTipo1(tipoPokemon(tipo1));
 				pokemon.setTipo2(tipoPokemon(tipo2));
+				
 				listaPokemonMap.add(pokemon);
 			}
 		}
@@ -69,18 +68,13 @@ public class LeituraTxt {
 
 	}
 
-	public static Tipo tipoPokemon(String tipoPokemon) {
-		List<Tipo> listaTipos = new ArrayList<>();
-		Tipo aux = null;
-		listaTipos.addAll(Arrays.asList(Tipo.ACO, Tipo.AGUA, Tipo.DRAGAO, Tipo.ELETRICO, Tipo.FADA, Tipo.FANTASMA, Tipo.FOGO,
-				Tipo.GELO, Tipo.GRAMA, Tipo.INSETO, Tipo.LUTADOR, Tipo.NORMAL, Tipo.NOTURNO, Tipo.PEDRA, Tipo.PEDRA,
-				Tipo.PSIQUICO, Tipo.TERRA, Tipo.VENENOSO, Tipo.VOADOR));
-		for (int i = 0; i < listaTipos.size(); i++) {
-			if (listaTipos.get(i).getDescricao().equals(tipoPokemon)) {
-				aux = listaTipos.get(i);
+	public Tipo tipoPokemon(String tipoPokemon) {
+		for (Tipo tipo : listaTipos) {
+			if(tipo.getDescricao().equals(tipoPokemon)) {
+				return tipo;
 			}
 		}
-		return aux;
+		return null;
 	}
 
 }
