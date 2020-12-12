@@ -99,6 +99,13 @@
 			<version>2.3.8</version>
 		</dependency>
 
+		<!-- Cria arquivo CSV -->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>4.2</version>
+		</dependency>
+
 
 	</dependencies>
 
